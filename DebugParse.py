@@ -1,5 +1,6 @@
 from colorama import init
 import re
+import sys
 # Test Parser to read debug files
 
 print('This is a test script to read and define q931 debug output')
@@ -13,7 +14,9 @@ try:
       for linenum, line in enumerate(log_name):
          if pattern.search(line) != None:
             log_desc.append((linenum, line.rstrip('\n')))
-            for linenum, line in log_desc:
-                print(linenum, ": ", line, sep='')
+            #for linenum, line in log_desc:
+            print(linenum, ": ", line, sep='')
 except FileNotFoundError:
     print('Invalid File / File Not Found')
+sys.exit(1)
+
