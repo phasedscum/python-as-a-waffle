@@ -1,3 +1,4 @@
+
 from netmiko import ConnectHandler
 import os
 import errno
@@ -13,8 +14,14 @@ print('\033[31m' + 'This is a Python scrip to generate typical "Show" commands f
 print('normal device config generation time still applies.')
 print('v0.1 Beta')
 init(wrap=False)
-ipaddr = input('Please enter IP Address : ')
-IP(ipaddr)
+
+try:
+    ipaddr = input('Please enter IP Address : ')
+    IP(ipaddr)
+except ValueError:
+    print('Invalid Ip')
+    sys.exit(1)
+
 username = input('Please enter username : ')
 password = input('Please enter device password : ')
 secret = input('Please enter secret : ')
@@ -24,7 +31,6 @@ cisco_devices = {
     'username': username,
     'password': password,
 }
-
 if not os.path.exists("C:/sshoutput/"):
     os.mkdir("C:/sshoutput/")
 
