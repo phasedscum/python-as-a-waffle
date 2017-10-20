@@ -79,3 +79,5 @@ System Application Agent[STARTED]
 Cisco ELM Resource API[STOPPED]  Service Not Activated 
 Cisco Messaging Interface[STOPPED]  Service Not Activated 
 Primary Node =true
+
+DB Version: ccm9_1_2_10000_28
