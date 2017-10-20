@@ -10,9 +10,10 @@ import sys
 
 timestamp = time.strftime(".%H%M%S")
 
-print('\033[31m' + 'This is a Python scrip to generate typical "Show" commands for Cisco IOS and IOS XE devices,')
-print('normal device config generation time still applies.')
-print('v0.1 Beta || Discontinued || Refer to IOS Communicator')
+print('\033[31m' + 'This is a Python scrip to generate pre-defined commands for Cisco IOS and IOS XE devices,')
+print('Files will be pulled from excel rows and saved in each individual text files according to IP Address')
+print('Normal device config generation time and resources consumption still applies.')
+print('v0.1 Beta')
 init(wrap=False)
 
 try:
