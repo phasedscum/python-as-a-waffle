@@ -16,7 +16,7 @@ print('Files will be pulled from excel rows and saved in each individual text fi
 print('Normal device config generation time and resources consumption still applies.')
 print('v0.1 Alpha')
 init(wrap=False)
-
+cleanslate = sys.stdout
 try:
     ipaddr = input('Please enter IP Address : ') # Manual IP Prompt
     #ipaddr = iprecs # Pull data through excel file from xcelip module
@@ -34,17 +34,31 @@ cisco_devices = {
     'password': password,
     'global_delay_factor': 20,
 }
+
 #if not os.path.exists("C:/sshoutput/"): # Test block for cuscomized target direcotory
     #os.mkdir("C:/sshoutput/")
 #path = 'C:/sshoutput/'
 
 """filename = ipaddr + str(timestamp) + '.txt'"""
 print('Generating.....' )
-
 net_connect = ConnectHandler(**cisco_devices)
 
-output = net_connect.send_command('show status')
-print(output, file=open(ipaddr + str(timestamp) + ".txt", "a"))
-print(output)
-#sys.stdout = orig_outp
-f.close()
+fileout = open(ipaddr + str(timestamp) + ".txt", "a")i
+sys.stdout = fileout
+ucos_commands = ['show date', 'show myself', 'show status', 'show version active', 'show version inactive']
+
+for command in ucos_commands:
+    print('=============== ' + command + ' ===============' + '\n')
+    output = net_connect.send_command(command + '\n', delay_factor=2)
+    print(output + '\n')
+    #file.write(output)
+
+net_connect.disconnect()
+sys.stdout = cleanslate
+fileout.close()
+#raise SystemExit
+
+try:
+    input("Press enter to continue")
+except SyntaxError:
+    pass
