@@ -36,17 +36,17 @@ except ValueError:
     sys.exit(1)
 
 username = input('Please enter username : ')
-#password = input('Please enter device password : ')
-password = getpass.getpass(prompt='Please enter device password : ')
-#secret = input('Please enter enable password : ')
-secret = getpass.getpass(prompt='Please enter enable password : ')
+password = input('Please enter device password : ')
+#password = getpass.getpass(prompt='Please enter device password : ')
+secret = input('Please enter enable password : ')
+#secret = getpass.getpass(prompt='Please enter enable password : ')
 cisco_devices = {
     'device_type': 'cisco_ios',
     'ip': ipaddr,
     'username': username,
     'password': password,
     'secret': secret,
-    #'global_delay_factor': 2,
+    'global_delay_factor': 2,
 }
 #if not os.path.exists("C:/sshoutput/"): # Test block for cuscomized target direcotory
     #os.mkdir("C:/sshoutput/")
@@ -55,15 +55,21 @@ cisco_devices = {
 fileout = open(ipaddr + str(timestamp) + ".txt", "a")
 print('Generating.....')
 sys.stdout = fileout
-
+#net_connect2 = ConnectHandler(**cisco_devices)
 net_connect = ConnectHandler(**cisco_devices)
-ios_commands = ['term length 0', 'show version', 'show clock', 'show processes cpu', 'show interfaces',
-                'show ip int bri', 'show environment', 'show inventory raw']
+ios_commands = ['show clock', 'show version', 'show inventory raw', 'show env all',
+                'show ip int bri', 'show log', 'show process cpu sorted',
+                'show process cpu history', 'show memory', 'show memory sorted', 'show cdp nei', 'show ip route',
+                'show switch']
+net_connect.enable()
+net_connect.send_command('term len 0')
 
 for command in ios_commands:
     print('=============== ' + command + ' ===============' + '\n')
-    output = net_connect.send_command_expect(command + '\n')
+    output = net_connect.send_command_expect(command)
     print(output + '\n')
+outrun = net_connect.send_command('show run')
+print('=============== ' + 'show run' + ' ===============' + '\n' + outrun)
 
 net_connect.disconnect()
 sys.stdout = cleanslate
