@@ -1,0 +1,13 @@
+show clock
+show version
+show inventory raw
+show env all
+show ip int bri
+show log
+show process cpu sorted
+show process cpu history
+show memory
+show memory sorted
+show cdp nei
+show ip route
+show switch

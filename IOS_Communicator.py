@@ -7,6 +7,7 @@ import time
 from IPy import IP
 from colorama import init, Fore, Back, Style
 import sys
+from Cmd import line
 import getpass
 
 timestamp = time.strftime(".%H%M%S")
@@ -57,10 +58,11 @@ print('Generating.....')
 sys.stdout = fileout
 #net_connect2 = ConnectHandler(**cisco_devices)
 net_connect = ConnectHandler(**cisco_devices)
-ios_commands = ['show clock', 'show version', 'show inventory raw', 'show env all',
-                'show ip int bri', 'show log', 'show process cpu sorted',
-                'show process cpu history', 'show memory', 'show memory sorted', 'show cdp nei', 'show ip route',
-                'show switch']
+#ios_commands = ['show clock', 'show version', 'show inventory raw', 'show env all',
+ #   'show ip int bri', 'show log', 'show process cpu sorted',
+  #              'show process cpu history', 'show memory', 'show memory sorted', 'show cdp nei', 'show ip route',
+   #             'show switch']
+ios_commands = line
 net_connect.enable()
 net_connect.send_command('term len 0')
 
